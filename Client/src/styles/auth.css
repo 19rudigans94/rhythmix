@@ -1,0 +1,79 @@
+/* Japanese-inspired Authentication Styles */
+.auth-container {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+  min-height: 100vh;
+  background-image: url('/japanese-pattern.svg');
+  background-size: 20px;
+  background-repeat: repeat;
+  background-blend-mode: soft-light;
+}
+
+.auth-card {
+  background: rgba(18, 18, 18, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.auth-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.auth-input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #7ac142;
+  box-shadow: 0 0 0 2px rgba(122, 193, 66, 0.2);
+}
+
+.wasabi-btn {
+  background: #7ac142;
+  color: #000;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.wasabi-btn:hover {
+  background: #8ed553;
+  transform: translateY(-2px);
+}
+
+.wasabi-btn:active {
+  transform: translateY(0);
+}
+
+.wasabi-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  transition: transform 0.5s ease-out;
+}
+
+.wasabi-btn:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.japanese-title {
+  font-family: 'Noto Sans JP', sans-serif;
+  letter-spacing: 0.1em;
+}
+
+.auth-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(122, 193, 66, 0.3),
+    transparent
+  );
+}

@@ -1,0 +1,122 @@
+/* Global Japanese-inspired Theme */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  --wasabi-50: #f5f9f0;
+  --wasabi-100: #e7f4d9;
+  --wasabi-200: #d2e9b7;
+  --wasabi-300: #b3d88c;
+  --wasabi-400: #8ed553;
+  --wasabi-500: #7ac142;
+  --wasabi-600: #5a9f2f;
+  --wasabi-700: #477a26;
+  --wasabi-800: #3c6123;
+  --wasabi-900: #345321;
+}
+
+body {
+  @apply bg-rhythmix-black text-white font-japanese;
+  background-image: url('/japanese-pattern.svg');
+  background-size: 20px;
+  background-repeat: repeat;
+  background-blend-mode: soft-light;
+}
+
+/* Japanese-inspired Components */
+.btn-wasabi {
+  @apply bg-wasabi-500 text-black font-bold py-2 px-4 rounded-full 
+         hover:bg-wasabi-400 transform hover:-translate-y-0.5 
+         transition-all duration-200 ease-in-out;
+}
+
+.btn-wasabi-outline {
+  @apply border-2 border-wasabi-500 text-wasabi-500 font-bold py-2 px-4 
+         rounded-full hover:bg-wasabi-500 hover:text-black 
+         transform hover:-translate-y-0.5 transition-all duration-200 ease-in-out;
+}
+
+.card-wasabi {
+  @apply bg-rhythmix-gray/95 backdrop-blur-md border border-white/10 
+         rounded-lg shadow-xl hover:shadow-wasabi-500/20 
+         transition-all duration-300;
+}
+
+.input-wasabi {
+  @apply bg-rhythmix-black/50 border border-white/10 rounded-lg px-4 py-2 
+         text-white placeholder-gray-400 focus:outline-none 
+         focus:border-wasabi-500 focus:ring-2 focus:ring-wasabi-500/20 
+         transition-all duration-200;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-rhythmix-black;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-wasabi-500/50 rounded-full hover:bg-wasabi-500;
+}
+
+/* Player Styles */
+.rhythmix-player {
+  @apply bg-transparent shadow-none;
+}
+
+.rhythmix-player .rhap_main-controls-button {
+  @apply text-white hover:text-wasabi-500 transition-colors;
+}
+
+.rhythmix-player .rhap_progress-filled {
+  @apply bg-wasabi-500;
+}
+
+.rhythmix-player .rhap_progress-indicator,
+.rhythmix-player .rhap_volume-indicator {
+  @apply bg-wasabi-400;
+}
+
+.rhythmix-player .rhap_volume-button {
+  @apply text-white hover:text-wasabi-500;
+}
+
+/* Navigation */
+.nav-link {
+  @apply flex items-center space-x-2 px-4 py-2 rounded-lg 
+         text-gray-300 hover:text-wasabi-500 hover:bg-white/5 
+         transition-all duration-200;
+}
+
+.nav-link.active {
+  @apply text-wasabi-500 bg-white/10;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Loading States */
+.loading-wasabi {
+  @apply relative w-12 h-12;
+}
+
+.loading-wasabi::after {
+  content: '';
+  @apply absolute inset-0 rounded-full border-2 border-wasabi-500 
+         border-t-transparent animate-spin;
+}
