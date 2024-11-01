@@ -78,6 +78,8 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
+
+
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'back  .exceptions.core_exception_handler',
     'NON_FIELD_ERRORS_KEY': 'error',
