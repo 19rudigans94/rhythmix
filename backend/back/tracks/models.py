@@ -12,7 +12,7 @@ class Track(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='tracks')
     album  = models.ForeignKey(Album,  on_delete=models.CASCADE, related_name='tracks', blank=True, null=True)
 
-    file = models.FileField(upload_to='tracks/', null=True, blank=True) 
+    file = models.FileField(upload_to='tracks_stream/', null=True, blank=True) 
     duration     = models.DurationField()
     release_date = models.DateField(null=True, blank=True)
     preview_url  = models.URLField(blank=True, null=True)
