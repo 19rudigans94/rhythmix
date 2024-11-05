@@ -19,8 +19,6 @@ from .serializers import (
       
     )
 
-import jwt
-
 from .renderers import UserJSONRenderer
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
