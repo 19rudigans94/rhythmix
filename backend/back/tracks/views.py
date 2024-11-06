@@ -18,10 +18,8 @@ class TrackListCreateView(generics.ListCreateAPIView):
     serializer_class = TrackSerializer
 
     def get_queryset(self):
-        # Получаем параметр поиска
         track_name = self.request.query_params.get('search')
 
-        # Если параметр поиска присутствует, ищем в кеше
         if track_name:
             cache_key = f"track_search_{track_name}"
             cached_tracks = cache.get(cache_key)

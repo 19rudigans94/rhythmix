@@ -6,15 +6,11 @@ from artists.models   import Artist
 from playlists.models import Playlist
 
 
-
 from datetime import timedelta, datetime
-
-
-
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
     client_id='6abf45f47ef24595b32d0c4dc7f3fc35',
-    client_secret='f0a081d2a4274450ae72687383dfa5db'
+    client_secret='6abf45f47ef24595b32d0c4dc7f3fc35'
 ))
 
 # импорт Артистов с Spotify

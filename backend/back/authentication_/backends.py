@@ -26,6 +26,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
             AuthenticationFailed и позволим DRF сделать все остальное.
         """
         request.user = None
+        print('egbhrh')
 
         # 'auth_header' должен быть массивом с двумя элементами:
         # 1) именем заголовка аутентификации (Token в нашем случае)
@@ -68,7 +69,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
         try:
             payload = jwt.decode(token, settings.SECRET_KEY)
         except Exception:
-            msg = 'Ошибка аутентификации. Невозможно декодировать токеню'
+            msg = 'Ошибка аутентификации. Невозможно декодировать токен'
             raise exceptions.AuthenticationFailed(msg)
 
         try:

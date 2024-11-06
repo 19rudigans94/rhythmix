@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from corsheaders.defaults import default_headers
 import os
 
 from dotenv import load_dotenv
@@ -63,15 +64,18 @@ INSTALLED_APPS = [
     'albums',
     'artists',
     'recommendations',
+    'admin_panel',
+    'library',
+    'search',
 
     'corsheaders',
 ]
 
-ALLOWED_HOSTS = ['172.28.0.155', 'localhost', '127.0.0.1', '172.28.0.190']
+ALLOWED_HOSTS = ['*']
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://172.28.0.190:3000",
+    "http://172.28.0.249:5173",
 ]
 
 
@@ -79,6 +83,11 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'x-location',
+    'x-timestamp',  
+]
 
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'back.exceptions.core_exception_handler',
@@ -90,11 +99,9 @@ REST_FRAMEWORK = {
         'authentication_.backends.JWTAuthentication',
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework_social_oauth2.authentication.SocialAuthentication',
-
-
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+
+
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -150,14 +157,22 @@ WSGI_APPLICATION = 'back.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'rhythmix_music',  
+#         'USER': 'postgres',  
+#         'PASSWORD': 'nezabudu',  
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432', 
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rhythmix_music',  
-        'USER': 'postgres',  
-        'PASSWORD': 'nezabudu',  
-        'HOST': 'localhost',
-        'PORT': '5432', 
+        'ENGINE': 'django.db.backends.sqlite3',  # Используется SQLite
+        'NAME': BASE_DIR / 'db.sqlite3',  # Имя файла базы данных
     }
 }
 
@@ -213,6 +228,8 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('GOOGLE_OAUTH2_SECRET')
+SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_ID')
+SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT')
 
 
 # Static files (CSS, JavaScript, Images)

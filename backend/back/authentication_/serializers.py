@@ -76,8 +76,7 @@ class LoginSerializer(serializers.Serializer):
                 'This user has been deactivated.'
             )
 
-        # Метод validate должен возвращать словать проверенных данных. Это
-        # данные, которые передются в т.ч. в методы create и update.
+        
         return {
              
             'email': user.email,
