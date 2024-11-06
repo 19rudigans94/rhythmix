@@ -1,24 +1,35 @@
-export const API_URL = 'http://127.0.0.1:8000/api/v1'
+export const API_URL = '/api/v1'
 
 export const API_ENDPOINTS = {
   AUTH: {
-    LOGIN: '/auth/login',
-    REGISTER: '/auth/register',
-    LOGOUT: '/auth/logout',
-    REFRESH: '/auth/refresh',
-    PROFILE: '/auth/profile',
+    LOGIN: '/users/login/',
+    REGISTER: '/users/',
+    GOOGLE_LOGIN: '/google/login/',
+    GOOGLE_CALLBACK: '/google/callback/',
+    PROFILE: '/user',
+    UPLOAD_AVATAR: '/users/upload-avatar/'
+  },
+  ALBUMS: {
+    BASE: '/albums-create/',
+    BY_ID: (id) => `/albums/${id}/`,
+    IMPORT: '/import-album-spotify/'
+  },
+  ARTISTS: {
+    BASE: '/artists/',
+    BY_ID: (id) => `/artists/${id}/`,
+    IMPORT: '/import-artist-spotify/'
   },
   PLAYLISTS: {
-    BASE: '/playlists',
-    BY_ID: (id) => `/playlists/${id}`,
-    TRACKS: (id) => `/playlists/${id}/tracks`,
+    BASE: '/playlists/',
+    CREATE: '/create-user-playlists/',
+    DETAILS: '/detail-playlists/',
+    BY_ID: (id) => `/playlists/${id}/`,
+    ADD_TRACK: (id) => `/playlists/${id}/add-track/`,
+    REMOVE_TRACK: (id) => `/playlists/${id}/remove-track/`,
+    IMPORT: '/import-playlist-spotify/'
   },
   TRACKS: {
-    BASE: '/tracks',
-    SEARCH: '/tracks/search',
-    BY_ID: (id) => `/tracks/${id}`,
-    LIKE: (id) => `/tracks/${id}/like`,
-    LIKED: '/tracks/liked',
-    RECOMMENDED: '/tracks/recommended',
-  },
+    BASE: '/tracks/',
+    IMPORT: '/import-track-spotify/'
+  }
 }

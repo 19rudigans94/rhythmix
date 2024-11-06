@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { PlayIcon, PauseIcon, HeartIcon } from '@heroicons/react/24/solid'
-import { setCurrentTrack, togglePlay, toggleLike } from '../store/slices/playerSlice'
+import { setCurrentTrack, togglePlay, toggleLike } from '@/app/store/slices/playerSlice'
 
 function TrackList({ tracks }) {
   const dispatch = useDispatch()

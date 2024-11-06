@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { tokenService } from '@/shared/lib/cookies'
+import { tokenService } from '@/shared/lib/storage'
 
 const initialState = {
   user: null,
@@ -21,7 +21,7 @@ const authSlice = createSlice({
       state.isAuthenticated = true
       state.user = action.payload.user
       tokenService.setTokens({
-        access: action.payload.accessToken,
+        access: action.payload.token,
         refresh: action.payload.refreshToken
       })
     },

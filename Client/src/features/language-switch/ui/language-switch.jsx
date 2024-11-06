@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
-import { i18n } from '@/shared/lib/i18n'
+import { useI18n } from '@/shared/lib/i18n/hooks/use-i18n'
+import { cn } from '@/shared/lib/class-names'
 
-function LanguageSwitch() {
+export function LanguageSwitch() {
+  const i18n = useI18n()
   const [currentLang, setCurrentLang] = useState(i18n.getLanguage())
 
   useEffect(() => {
@@ -14,7 +16,7 @@ function LanguageSwitch() {
     return () => {
       i18n.removeListener('languageChange', handleLanguageChange)
     }
-  }, [])
+  }, [i18n])
 
   const handleLanguageChange = (lang) => {
     i18n.setLanguage(lang)
@@ -26,11 +28,12 @@ function LanguageSwitch() {
         <button
           key={lang}
           onClick={() => handleLanguageChange(lang)}
-          className={`px-2 py-1 rounded-md text-sm transition-colors ${
+          className={cn(
+            'px-2 py-1 rounded-md text-sm transition-colors',
             currentLang === lang
               ? 'bg-wasabi-500 text-black'
               : 'text-gray-400 hover:text-white'
-          }`}
+          )}
         >
           {lang.toUpperCase()}
         </button>
@@ -38,5 +41,3 @@ function LanguageSwitch() {
     </div>
   )
 }
-
-export default LanguageSwitch

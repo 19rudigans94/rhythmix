@@ -14,7 +14,7 @@ import {
   previousTrack,
   setVolume,
   toggleLike,
-} from '../store/slices/playerSlice'
+} from '@/app/store/slices/playerSlice'
 import 'react-h5-audio-player/lib/styles.css'
 
 function Player() {

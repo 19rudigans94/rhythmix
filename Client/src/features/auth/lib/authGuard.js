@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { tokenService } from '@/shared/lib/cookies'
+import { tokenService } from '@/shared/lib/storage'
 
 export function useAuthGuard(requireAuth = true) {
   const navigate = useNavigate()

@@ -1,15 +1,15 @@
 import { baseAPI } from '@/shared/api/base'
-import { tokenService } from '@/shared/lib/cookies'
+import { tokenService } from '@/shared/lib/storage'
 
 export const authAPI = {
   login: async (credentials) => {
-    const { data } = await baseAPI.post('/auth/login', credentials)
+    const { data } = await baseAPI.post('/users/login/', credentials)
     tokenService.setTokens(data.tokens)
     return data
   },
 
   register: async (userData) => {
-    const { data } = await baseAPI.post('/auth/register', userData)
+    const { data } = await baseAPI.post('/users/', userData)
     tokenService.setTokens(data.tokens)
     return data
   },

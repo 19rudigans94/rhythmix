@@ -2,20 +2,24 @@ import { baseAPI } from './base'
 
 export const authAPI = {
   login: (credentials) => 
-    baseAPI.post('/auth/login', credentials),
+    baseAPI.post('/users/login/', credentials),
   
   register: (userData) => 
-    baseAPI.post('/auth/register', userData),
+    baseAPI.post('/users/', userData),
   
-  logout: () => 
-    baseAPI.post('/auth/logout'),
+  googleLogin: () => 
+    baseAPI.get('/google/login/'),
   
-  refreshToken: () => 
-    baseAPI.post('/auth/refresh'),
+  googleCallback: (code) => 
+    baseAPI.get(`/google/callback/?code=${code}`),
   
   getProfile: () => 
-    baseAPI.get('/auth/profile'),
+    baseAPI.get('/user'),
   
-  updateProfile: (data) => 
-    baseAPI.put('/auth/profile', data)
+  uploadAvatar: (formData) => 
+    baseAPI.post('/users/upload-avatar/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
 }

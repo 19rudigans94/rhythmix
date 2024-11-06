@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { tokenService } from '@/shared/lib/cookies'
+import { tokenService } from '@/shared/lib/storage'
 import { API_URL } from '@/shared/config'
 
 const api = axios.create({

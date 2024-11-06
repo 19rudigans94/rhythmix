@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { API_URL } from '@/shared/config'
-import { tokenService } from '@/shared/lib/cookies'
+import { tokenService } from '@/shared/lib/storage'
 import { getCurrentPosition } from '@/shared/lib/geolocation'
 
 const baseAPI = axios.create({
@@ -41,7 +41,6 @@ baseAPI.interceptors.response.use(
       originalRequest._retry = true
 
       try {
-        // Ensure only one refresh token request at a time
         if (!refreshPromise) {
           refreshPromise = axios.post(`${API_URL}/auth/refresh`, {
             refresh_token: tokenService.getRefreshToken()

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  playlists: [], // Initialize as empty array
+  playlists: [],
   currentPlaylist: null,
   loading: false,
   error: null,

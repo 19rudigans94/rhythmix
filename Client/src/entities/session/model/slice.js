@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { tokenService } from '@/shared/lib/storage'
 
 const initialState = {
   user: null,
-  token: localStorage.getItem('token'),
-  isAuthenticated: false,
+  token: tokenService.getAccessToken(),
+  isAuthenticated: !!tokenService.getAccessToken(),
   loading: false,
   error: null,
 }
@@ -21,7 +22,10 @@ export const sessionSlice = createSlice({
       state.isAuthenticated = true
       state.user = action.payload.user
       state.token = action.payload.token
-      localStorage.setItem('token', action.payload.token)
+      tokenService.setTokens({
+        access: action.payload.token,
+        refresh: action.payload.refreshToken
+      })
     },
     loginFailure: (state, action) => {
       state.loading = false
@@ -31,7 +35,7 @@ export const sessionSlice = createSlice({
       state.user = null
       state.token = null
       state.isAuthenticated = false
-      localStorage.removeItem('token')
+      tokenService.removeTokens()
     },
     updateProfile: (state, action) => {
       state.user = { ...state.user, ...action.payload }

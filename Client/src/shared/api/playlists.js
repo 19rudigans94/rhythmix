@@ -2,23 +2,29 @@ import { baseAPI } from './base'
 
 export const playlistsAPI = {
   getAll: () => 
-    baseAPI.get('/playlists'),
+    baseAPI.get('/playlists/'),
   
   getById: (id) => 
-    baseAPI.get(`/playlists/${id}`),
+    baseAPI.get(`/playlists/${id}/`),
   
-  create: (data) => 
-    baseAPI.post('/playlists', data),
+  create: () => 
+    baseAPI.post('/create-user-playlists/'),
   
-  update: (id, data) => 
-    baseAPI.put(`/playlists/${id}`, data),
+  update: (id, playlistData) => 
+    baseAPI.put(`/playlists/${id}/`, playlistData),
   
-  delete: (id) => 
-    baseAPI.delete(`/playlists/${id}`),
+  search: (query) => 
+    baseAPI.get('/playlists/', { params: { search: query } }),
+  
+  importFromSpotify: (spotifyUrl) => 
+    baseAPI.post('/import-playlist-spotify/', { url: spotifyUrl }),
   
   addTrack: (playlistId, trackId) => 
-    baseAPI.post(`/playlists/${playlistId}/tracks`, { trackId }),
+    baseAPI.post(`/playlists/${playlistId}/add-track/`, { track_id: trackId }),
   
   removeTrack: (playlistId, trackId) => 
-    baseAPI.delete(`/playlists/${playlistId}/tracks/${trackId}`)
+    baseAPI.post(`/playlists/${playlistId}/remove-track/`, { track_id: trackId }),
+  
+  getDetails: () => 
+    baseAPI.get('/detail-playlists/')
 }
