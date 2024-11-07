@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Streaming</title>
+</head>
+<body>
+    <button id="playTrack">Play Track</button>
+    <audio id="audioPlayer" controls></audio>
+
+    <script>
+        document.getElementById('playTrack').addEventListener('click', function() {
+            const trackName = '.mp3'; 
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.src = `/stream_async/${trackName}`;
+            audioPlayer.play();
+        });
+    </script>
+</body>
+</html>

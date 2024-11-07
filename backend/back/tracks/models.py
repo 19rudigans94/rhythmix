@@ -2,9 +2,6 @@ from django.db      import models
 from uuid           import uuid4
 from artists.models import Artist
 from albums.models  import Album
-
-
-
 # Модель Трэков
 class Track(models.Model):
     id     = models.UUIDField(default=uuid4, primary_key=True)
