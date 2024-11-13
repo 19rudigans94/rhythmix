@@ -66,9 +66,9 @@ class JWTAuthentication(authentication.BaseAuthentication):
         вернуть пользователя и токен, иначе - сгенерировать исключение.
         """
         try:
-            payload = jwt.decode(token, settings.SECRET_KEY)
-        except Exception:
-            msg = 'Ошибка аутентификации. Невозможно декодировать токеню'
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+        except Exception as e:
+            msg = 'Ошибка аутентификации. Невозможно декодировать токен'+str(e)
             raise exceptions.AuthenticationFailed(msg)
 
         try:
