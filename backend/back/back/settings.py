@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'recommendations',
 
     'corsheaders',
+    'search',
 ]
 
 ALLOWED_HOSTS = ['172.28.0.155', 'localhost', '127.0.0.1', '172.28.0.190']

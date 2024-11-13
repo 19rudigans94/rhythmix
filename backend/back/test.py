@@ -23,21 +23,22 @@ import requests
 
 
 
-url = 'http://172.28.0.245  :8000/api/v1/users/login/'
+# url = 'http://127.0.0.1:8000/api/v1/users/login/'
 
-data = {
-    'user' :{
-        'email': 'vassabi@gmail.com',
-        'password': '12345678'
-    }
-}
-response = requests.post(url, json=data)
+# data = {
+#     'user' :{
+#         'email': 'vassabi@gmail.com',
+#         'password': '12345678',
+#         'username': 'vassabi'
+#     }
+# }
+# response = requests.post(url, json=data)
 
-if response.status_code == 200:  
-    print("Пользователь успешно зарегистрирован:", response.json())
-else:
-    print("Ошибка регистрации:", response.status_code)
-    print("Текст ответа:", response.text)
+# if response.status_code == 200:  
+#     print("Пользователь успешно авторизован:", response.json())
+# else:
+#     print("Ошибка авторизации:", response.status_code)
+#     print("Текст ответа:", response.text)
 
 
 # jwt_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZXhwIjoxNzMwOTA4NDkxfQ.LfHWHJD_f_o3x_6uxaxJ_a58mjn_ucyXNn_5CAuOkNk'
@@ -61,3 +62,25 @@ else:
 #     print('Успешный импорт трека:', response.json())
 # else:
 #     print('Ошибка:', response.status_code, response.text)
+
+
+
+url = 'http://127.0.0.1:8000/api/v1/track-search/'
+jwt_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNzMxNTk5MjMxfQ.mnxNz8cw036LCmNGPF3TnJUzFEMypu3A674Pq8UMaDE'
+
+headers = {
+    'Authorization': f'Bearer{jwt_token}',
+    'Content-Type': 'application/json'
+}
+
+data = {
+    'track_name' : 'Ползать'
+}
+
+
+response = requests.post(url, headers=headers, json=data)
+
+if response.status_code == 200:
+    print('Успешный поиск трека:', response.json())
+else:
+    print('Ошибка:', response.status_code, response.text)  # 401 Unauthorized

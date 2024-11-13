@@ -5,6 +5,7 @@ from .views import (
     UserAddTrackPlaylistView,
     UserRemoveTrackFromPlaylistView,
     SpotifyImportTrackView,
+    TrackSerachView,
 )
 
 
@@ -16,5 +17,6 @@ urlpatterns = [
 
     path('playlists/<uuid:pk>/add-track/', UserAddTrackPlaylistView.as_view(), name='user-add-track'),
     path('playlists/<uuid:pk>/remove-track/', UserRemoveTrackFromPlaylistView.as_view(), name='user-remove-track'),
+    path('track-search/', TrackSerachView.as_view(), name='search_track'), 
 
 ]

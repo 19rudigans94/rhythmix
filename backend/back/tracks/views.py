@@ -10,42 +10,13 @@ from rest_framework.permissions import IsAuthenticated
 from playlists.serializers      import PlaylistSerializer
 from rest_framework.views       import APIView
 from django.core.cache          import cache
+from rest_framework             import status
 
 
 
 class TrackListCreateView(generics.ListCreateAPIView):
     queryset = Track.objects.all()
     serializer_class = TrackSerializer
-
-    def get_queryset(self):
-        # Получаем параметр поиска
-        track_name = self.request.query_params.get('search')
-
-        # Если параметр поиска присутствует, ищем в кеше
-        if track_name:
-            cache_key = f"track_search_{track_name}"
-            cached_tracks = cache.get(cache_key)
-
-            if cached_tracks:
-                # Если треки найдены в кеше, возвращаем их
-                return cached_tracks
-            
-            # Если трек не найден в кеше, ищем в базе данных
-            tracks = Track.objects.filter(title__icontains=track_name)
-            if tracks.exists():
-                # Сохраняем результаты в кеше на 1 час
-                cache.set(cache_key, tracks, timeout=3600)
-                return tracks
-            else:
-                # Если трек не найден, импортируем его из Spotify и кешируем результат
-                result = import_track_from_spotify(track_name)
-                if "successfully" in result.lower():
-                    # Обновляем кеш с новым треком
-                    new_tracks = Track.objects.filter(title__icontains=track_name)
-                    cache.set(cache_key, new_tracks, timeout=864000)
-                    return new_tracks
-        return super().get_queryset()
-
 
 
 class TrackRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
@@ -110,3 +81,36 @@ class UserRemoveTrackFromPlaylistView(generics.UpdateAPIView):
         
 
 
+class TrackSerachView(APIView):
+    """
+        Представление для поиска треков
+    """
+    def get(self, request):
+        track_name = request.query_params.get('search')
+
+        if not track_name:
+            return Response({'error': 'Search parametds is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        cache_key = f"tracks_search_{track_name}"
+        cached_tracks = cache.get(cache_key)
+
+        if cached_tracks:
+            return Response(cached_tracks, status=status.HTTP_200_OK)
+        
+        tracks = Track.objects.filter(title__icontains=track_name)
+        if tracks.exists():
+            serialezed_tracks = TrackSerializer(tracks, many=True).data
+            cache.set(cache_key, serialezed_tracks,timeout=36000)
+            return Response(serialezed_tracks, status=status.HTTP_200_OK)
+        
+        result = import_track_from_spotify(track_name)
+        if "successfully" in result.lower():
+            new_track = Track.objects.filter(title__icontains=track_name)
+            serialized_new_tracks = TrackSerializer(new_track, many=True).data
+            cache.set(cache_key, serialized_new_tracks, timeout=36000)
+            return Response(serialized_new_tracks, status=status.HTTP_200_OK)
+        return Response({'error': 'Track not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+        
+        
+        
