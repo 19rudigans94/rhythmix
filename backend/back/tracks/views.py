@@ -10,46 +10,14 @@ from rest_framework.permissions import IsAuthenticated
 from playlists.serializers      import PlaylistSerializer
 from rest_framework.views       import APIView
 from django.core.cache          import cache
-<<<<<<< HEAD
-from rest_framework import status
-import os
-import json
-=======
 from rest_framework             import status
 
 
->>>>>>> backend
 
 class TrackListCreateView(generics.ListCreateAPIView):
     queryset = Track.objects.all()
     serializer_class = TrackSerializer
 
-<<<<<<< HEAD
-    def get_queryset(self):
-        track_name = self.request.query_params.get('search')
-
-        if track_name:
-            cache_key = f"track_search_{track_name}"
-            cached_tracks = cache.get(cache_key)
-
-            if cached_tracks:
-                return cached_tracks
-            
-            tracks = Track.objects.filter(title__icontains=track_name)
-            if tracks.exists():
-                cache.set(cache_key, tracks, timeout=3600)
-                return tracks
-            else:
-                result = import_track_from_spotify(track_name)
-                if "successfully" in result.lower():
-                    new_tracks = Track.objects.filter(title__icontains=track_name)
-                    cache.set(cache_key, new_tracks, timeout=86400)
-                    return new_tracks
-        return super().get_queryset()
-
-
-=======
->>>>>>> backend
 
 class TrackRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Track.objects.all()
@@ -95,6 +63,7 @@ class UserAddTrackPlaylistView(generics.UpdateAPIView):
 
 
 
+
 class UserRemoveTrackFromPlaylistView(generics.UpdateAPIView):
     serializer_class = PlaylistSerializer
     permission_classes = [IsAuthenticated]
@@ -111,28 +80,7 @@ class UserRemoveTrackFromPlaylistView(generics.UpdateAPIView):
             return Response({'error': 'Track not found'}, status=status.HTTP_404_NOT_FOUND)
         
 
-class TrackSearchView(APIView):
-    def get(self, request):
-        track_name = request.query.params.get('serach')
 
-<<<<<<< HEAD
-        if not track_name:
-            return Response({"error": "Search parametr 'serach' is required"},status=400)
-        
-        cloud_storage_path = '/cloud_storage'
-        tracks = []
-
-        for filename in os.listdir(cloud_storage_path):
-            if filename.endswith('.json'):
-                with open(os.path.join(cloud_storage_path, filename), 'r') as file:
-                    track_data=json.load(file)
-                    if track_name.lowe() in track_data['title'].lower():
-                        tracks.append(track_data)
-        if tracks:
-            return Response(tracks, status=200)
-        else:
-            return Response({'message': "No tracks found"}, status=404)
-=======
 class TrackSerachView(APIView):
     """
         Представление для поиска треков
@@ -166,4 +114,3 @@ class TrackSerachView(APIView):
         
         
         
->>>>>>> backend
