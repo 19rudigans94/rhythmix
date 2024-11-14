@@ -66,7 +66,7 @@ import requests
 
 
 url = 'http://127.0.0.1:8000/api/v1/track-search/'
-jwt_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNzMxNTk5MjMxfQ.mnxNz8cw036LCmNGPF3TnJUzFEMypu3A674Pq8UMaDE'
+jwt_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNzMxNjAwMzU5fQ.4grGSK9gJ4MYMEfFTR7QWnPPRrX3l1kjHw_gaRth4NQ'
 
 headers = {
     'Authorization': f'Bearer{jwt_token}',
@@ -78,7 +78,7 @@ data = {
 }
 
 
-response = requests.post(url, headers=headers, json=data)
+response = requests.post(url= url, headers=headers, json=data)
 
 if response.status_code == 200:
     print('Успешный поиск трека:', response.json())
