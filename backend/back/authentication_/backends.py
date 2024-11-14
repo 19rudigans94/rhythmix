@@ -59,29 +59,26 @@ class JWTAuthentication(authentication.BaseAuthentication):
         # К настоящему моменту есть "шанс", что аутентификация пройдет успешно.
         # Мы делегируем фактическую аутентификацию учетных данных методу ниже.
         return self._authenticate_credentials(request, token)
-    
+
     def _authenticate_credentials(self, request, token):
         """
-        Попытка аутентификации с предоставленными данными.
+        Попытка аутентификации с предоставленными данными. Если успешно -
+        вернуть пользователя и токен, иначе - сгенерировать исключение.
         """
         try:
-            #
-            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
-        except jwt.ExpiredSignatureError:
-            msg = 'Токен истек.'
-            raise exceptions.AuthenticationFailed(msg)
-        except jwt.InvalidTokenError:
-            msg = 'Невозможно декодировать токен.'
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+        except Exception as e:
+            msg = 'Ошибка аутентификации. Невозможно декодировать токен'+str(e)
             raise exceptions.AuthenticationFailed(msg)
 
         try:
             user = User.objects.get(pk=payload['id'])
         except User.DoesNotExist:
-            msg = 'Пользователь, соответствующий данному токену, не найден.'
+            msg = 'Пользователь соответствующий данному токену не найден.'
             raise exceptions.AuthenticationFailed(msg)
 
         if not user.is_active:
-            msg = 'Этот пользователь деактивирован.'
+            msg = 'Данный пользователь деактивирован.'
             raise exceptions.AuthenticationFailed(msg)
 
         return (user, token)
