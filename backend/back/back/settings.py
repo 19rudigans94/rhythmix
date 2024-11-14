@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'recommendations',
 
     'corsheaders',
+    'search',
 ]
 
 ALLOWED_HOSTS = ['172.28.0.155', 'localhost', '127.0.0.1', '172.28.0.190']
@@ -92,6 +93,10 @@ REST_FRAMEWORK = {
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework_social_oauth2.authentication.SocialAuthentication',
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> backend
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
